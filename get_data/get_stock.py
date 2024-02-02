@@ -11,7 +11,6 @@ import baostock as bs
 import akshare as ak
 import os
 
-import pdb
 
 def get_date():
     stock_path = os.path.join(r'E:\data', 'stock')
@@ -50,7 +49,6 @@ def stock_list_concat(queue):
             return pd.DataFrame({'bs_code':stock_list})
 
 def get_stock_list(start_date, end_date):
-    pdb.set_trace()
     xdate = pd.date_range(start_date, end_date).tolist()
     xdate = xdate[0:-1:120]
 
