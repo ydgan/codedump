@@ -7,7 +7,7 @@ import numpy as np
 
 import os, pdb
 
-valid_factors = ['gj_121', 'alpha_094', 'clreg_20', 'gj_184', 'mareg_6', 'mareg_12']
+valid_factors = []
 
 def symmetry_ortho(factors):
     idx = factors.index
