@@ -9,7 +9,7 @@ from sklearn.covariance import LedoitWolf
 
 import os, pdb
 
-valid_factors = ['mfi_20', 'gj_116', 'gj_147', 'klinger', 'alpha_002', 'aroon_20']
+valid_factors = []
 
 if __name__ == '__main__':
 
