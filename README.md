@@ -1,6 +1,6 @@
 # codedump
 
-get_data - 获取沪深两市个股日频行情以及申万一级行业日频指数
+get_data - 获取个股以及申万行业指数日频行情
 
 get_factors - 因子计算以及预处理
 
