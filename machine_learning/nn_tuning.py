@@ -6,15 +6,13 @@ import pandas as pd
 pd.set_option('display.max_columns', None)
 import numpy as np
 
-import pdb
-
 import torch
 device = torch.device('cuda:0')
 from torch import nn
 from torch.utils.data import DataLoader
 from torch.utils.data import TensorDataset
 
-from sklearn.preprocessing import StandardScaler
+import pdb
 
 
 class CNNLSTM(nn.Module):
@@ -87,11 +85,11 @@ def get_train_test(feature_path, train_test):
             continue
 
         for file in [x for x in files if x.endswith('.csv')]:
-            #print(file)
             mdata = pd.read_csv(os.path.join(root, file), index_col=0, dtype=np.float32)
-            mdata.reset_index(drop=True, inplace=True)
+            mdata['MidPrice'] = mdata['MidPrice'].shift(-1)
 
-            mdata = (mdata - mdata.mean()) / mdata.std()
+            mdata.iloc[:, :-1] = (mdata.iloc[:, :-1] - mdata.iloc[:, :-1].mean()) /\
+                                    mdata.iloc[:, :-1].std()
 
             #valid_index =[int(x) for x in mdata[mdata['Label'] != 0.0].index]
             #tmp_index = np.arange(10, mdata.shape[0], 10).tolist()
@@ -109,6 +107,7 @@ def get_train_test(feature_path, train_test):
             else:
                 train_feature += [mdata.iloc[i-lookback_window:i, :-1] for i in range(lookback_window, mdata.shape[0]+1)]
                 train_label += [mdata.iloc[i-1, -1] for i in range(lookback_window, mdata.shape[0]+1)]
+
 
     #wts = [x for _, x in weights.items()]
     #wts = torch.tensor([max(wts) / x for x in wts], dtype=torch.float32)
@@ -134,7 +133,7 @@ if __name__ == '__main__':
         test_loader = DataLoader(test, batch_size=256, shuffle=False)
 
         net = CNNLSTM(
-            input_size=42,
+            input_size=41,
             hidden_size=256,
             num_layers=1,
             output_channel=128,
@@ -175,7 +174,7 @@ if __name__ == '__main__':
                     print('Epoch %s, Test Loss %s'%(epoch+1, np.mean(tloss)))
         test_loss.append(np.mean(tloss))
 
-    print(np.mean(test_loss))
+    pdb.set_trace()
                 
 
 
