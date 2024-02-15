@@ -10,4 +10,4 @@ factors_eva - 因子评估
 ————————————————————————————————————————————————————————————
 
 最佳多因子表现
-![image]https://github.com/ydgan/codedump/blob/main/eva_img/IC-20180101-20231231.png
+![image](https://github.com/ydgan/codedump/blob/main/eva_img/IC-20180101-20231231.png)
